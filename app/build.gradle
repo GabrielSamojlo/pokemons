@@ -1,0 +1,85 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.gabrielsamojlo.pokemons'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.gabrielsamojlo.pokemons"
+        minSdk 23
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.0'
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    // TODO: Should be migrated to version catalogs
+
+    // Compose
+    implementation "androidx.compose.ui:ui:1.5.0-alpha03"
+    implementation "androidx.compose.material:material:1.4.2"
+    implementation "androidx.activity:activity-compose:1.7.1"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+
+    // DI
+    implementation "io.insert-koin:koin-android:3.3.3"
+    implementation "io.insert-koin:koin-androidx-compose:3.4.2"
+
+    // Core
+    implementation "androidx.core:core-ktx:1.10.0"
+    implementation "androidx.appcompat:appcompat:1.6.1"
+    implementation "com.google.android.material:material:1.8.0"
+    implementation 'androidx.compose.material3:material3:1.1.0-rc01'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+
+    // Paging
+    implementation "androidx.paging:paging-common-ktx:3.1.1"
+    implementation "androidx.paging:paging-compose:1.0.0-alpha18"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
+
+    // Utils
+    implementation "io.coil-kt:coil-compose:2.2.2"
+    implementation "com.google.accompanist:accompanist-swiperefresh:0.18.0"
+
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
+}
