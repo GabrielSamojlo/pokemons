@@ -9,7 +9,7 @@ data class PokemonResponse(
     val url: String = "",
 ) {
     val id: Int
-        get() = url.replace(URL, "").split("/").last().toInt()
+        get() = url.replace(URL, "").split("/").last { it.isNotEmpty() }.toInt()
 
     val imageUrl: String
         get() = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png"

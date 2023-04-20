@@ -6,7 +6,7 @@ import com.gabrielsamojlo.pokemons.domain.model.toDomain
 import com.gabrielsamojlo.pokemons.persistence.LocalDataSource
 import com.gabrielsamojlo.pokemons.remote.RemoteDataSource
 
-class PokemonRepositoryImpl(
+internal class PokemonRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource
 ): PokemonRepository {
