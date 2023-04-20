@@ -12,6 +12,9 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
+const val URL = "https://pokeapi.co/api/v2/"
+private const val CONTENT_TYPE = "application/json"
+
 val remoteModule = module {
     single {
         Json { ignoreUnknownKeys = true }
@@ -39,6 +42,3 @@ val remoteModule = module {
 
     factory<RemoteDataSource> { RemoteDataSourceImpl(get()) }
 }
-
-private const val CONTENT_TYPE = "application/json"
-private const val URL = "https://pokeapi.co/api/v2/"
