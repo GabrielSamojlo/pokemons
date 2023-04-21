@@ -9,7 +9,8 @@ fun PokemonDetailsResponse.toDomain(): PokemonDetails {
         id = this.id,
         name = this.name,
         height = this.height,
-        weight = this.weight
+        weight = this.weight,
+        imageUrl = this.imageUrl
     )
 }
 
@@ -17,17 +18,15 @@ fun PokemonDetailsResponse.toEntity(): PokemonEntity {
     return PokemonEntity(
         id = this.id,
         name = this.name,
-        height = this.height,
-        weight = this.weight
+        imageUrl = this.imageUrl
     )
 }
 
-fun PokemonEntity.toDomain(): PokemonDetails {
-    return PokemonDetails(
+fun PokemonEntity.toDomain(): Pokemon {
+    return Pokemon(
         id = this.id,
         name = this.name,
-        height = this.height,
-        weight = this.weight
+        imageUrl = this.imageUrl
     )
 }
 
@@ -35,8 +34,7 @@ fun PokemonDetails.toEntity(): PokemonEntity {
     return PokemonEntity(
         id = this.id,
         name = this.name,
-        height = this.height,
-        weight = this.weight
+        imageUrl = this.imageUrl
     )
 }
 
@@ -44,7 +42,14 @@ fun PokemonResponse.toDomain(): Pokemon {
     return Pokemon(
         id = this.id,
         name = this.name,
-        url = this.url,
+        imageUrl = this.imageUrl
+    )
+}
+
+fun PokemonResponse.toEntity(): PokemonEntity {
+    return PokemonEntity(
+        id = this.id,
+        name = this.name,
         imageUrl = this.imageUrl
     )
 }

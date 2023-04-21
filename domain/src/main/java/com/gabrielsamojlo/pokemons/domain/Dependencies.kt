@@ -6,5 +6,6 @@ import org.koin.dsl.module
 
 val domainModule = module {
     includes(remoteModule, persistenceModule)
-    factory<PokemonRepository> { PokemonRepositoryImpl(get(), get()) }
+    factory { RemoteSourceMediator(get(), get()) }
+    factory<PokemonRepository> { PokemonRepositoryImpl(get(), get(), get()) }
 }

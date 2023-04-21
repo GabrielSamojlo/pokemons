@@ -8,4 +8,7 @@ data class PokemonDetailsResponse(
     val name: String = "",
     val height: Int = 0,
     val weight: Int = 0,
-)
+) {
+    val imageUrl: String
+        get() = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/$id.png"
+}

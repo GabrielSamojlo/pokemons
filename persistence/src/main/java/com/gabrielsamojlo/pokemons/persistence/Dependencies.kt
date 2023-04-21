@@ -1,6 +1,7 @@
 package com.gabrielsamojlo.pokemons.persistence
 
 import androidx.room.Room
+import com.gabrielsamojlo.pokemons.persistence.dao.PokemonKeyDao
 import org.koin.dsl.module
 
 val persistenceModule = module {
@@ -9,5 +10,7 @@ val persistenceModule = module {
 
     single { get<PokemonDatabase>().pokemonDao() }
 
-    factory<LocalDataSource> { LocalDataSourceImpl(get()) }
+    single { get<PokemonDatabase>().pokemonKeyDao() }
+
+    factory<LocalDataSource> { LocalDataSourceImpl(get(), get(), get()) }
 }

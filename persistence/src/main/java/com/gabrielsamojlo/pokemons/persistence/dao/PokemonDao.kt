@@ -1,5 +1,6 @@
 package com.gabrielsamojlo.pokemons.persistence.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -14,5 +15,11 @@ internal interface PokemonDao {
 
     @Query("SELECT * FROM PokemonEntity")
     suspend fun getAll(): List<PokemonEntity>
+
+    @Query("SELECT * FROM PokemonEntity")
+    fun getAllAsPagingSource(): PagingSource<Int, PokemonEntity>
+
+    @Query("DELETE FROM PokemonEntity")
+    fun deleteAll()
 
 }
