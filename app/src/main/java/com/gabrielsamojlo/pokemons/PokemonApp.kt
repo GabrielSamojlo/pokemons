@@ -8,7 +8,8 @@ import org.koin.core.context.startKoin
 class PokemonApp : Application() {
 
     private val koinModules = listOf(
-        domainModule
+        domainModule,
+        appModule
     )
 
     override fun onCreate() {

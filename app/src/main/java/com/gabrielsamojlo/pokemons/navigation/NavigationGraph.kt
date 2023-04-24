@@ -1,12 +1,17 @@
 package com.gabrielsamojlo.pokemons.navigation
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
-import com.gabrielsamojlo.pokemons.MainScreen
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import com.gabrielsamojlo.pokemons.feature.list.PokemonListScreen
+import com.gabrielsamojlo.pokemons.feature.list.PokemonListViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun NavigationGraph(modifier: Modifier = Modifier) {
@@ -18,10 +23,19 @@ fun NavigationGraph(modifier: Modifier = Modifier) {
     ) {
         navigation(
             route = MAIN_GRAPH_DESTINATION,
-            startDestination = Destination.MainScreen.route
+            startDestination = Destination.PokemonListScreen.route
         ) {
-            composable(Destination.MainScreen.route) {
-                MainScreen()
+            composable(Destination.PokemonListScreen.route) {
+                val viewModel: PokemonListViewModel = koinViewModel()
+                val state = viewModel.state.collectAsLazyPagingItems()
+
+                PokemonListScreen(
+                    modifier = Modifier.fillMaxSize(),
+                    isLoading = state.loadState.refresh == LoadState.Loading,
+                    pokemons = state,
+                    onPokemonClicked = {},
+                    error = (state.loadState.refresh as? LoadState.Error)?.error
+                )
             }
         }
     }
