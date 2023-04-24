@@ -13,16 +13,8 @@ internal class LocalDataSourceImpl(
     private val pokemonKeyDao: PokemonKeyDao
 ): LocalDataSource {
 
-    override suspend fun insertAll(entities: List<PokemonEntity>) {
-        pokemonDao.insertAll(entities)
-    }
-
     override suspend fun insert(entity: PokemonEntity) {
         pokemonDao.insert(entity)
-    }
-
-    override suspend fun getAll(): List<PokemonEntity> {
-        return pokemonDao.getAll()
     }
 
     override fun getAllAsPagingSource(): PagingSource<Int, PokemonEntity> {

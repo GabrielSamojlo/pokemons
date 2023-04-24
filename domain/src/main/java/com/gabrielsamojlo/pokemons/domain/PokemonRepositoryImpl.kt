@@ -23,9 +23,6 @@ internal class PokemonRepositoryImpl(
     private val mediator: RemoteSourceMediator,
     private val stateExtractor: StateExtractor
 ) : PokemonRepository {
-    override suspend fun getAll(): List<Pokemon> {
-        return remoteDataSource.getPaginated().map { it.toDomain() }
-    }
 
     override fun getById(id: Int?): Flow<State<PokemonDetails>> {
         return flow {
