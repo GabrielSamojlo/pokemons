@@ -1,4 +1,4 @@
-package com.gabrielsamojlo.pokemons.ui.theme
+package com.gabrielsamojlo.pokemons.design.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Pokemons</string>
+    <string name="pokemon_experience">%1$d experience</string>
 </resources>

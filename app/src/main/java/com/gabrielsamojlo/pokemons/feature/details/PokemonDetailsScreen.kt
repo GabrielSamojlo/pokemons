@@ -1,11 +1,9 @@
 package com.gabrielsamojlo.pokemons.feature.details
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -17,21 +15,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.CachePolicy
-import coil.request.ImageRequest
 import com.gabrielsamojlo.pokemons.R
+import com.gabrielsamojlo.pokemons.design.ErrorView
+import com.gabrielsamojlo.pokemons.design.PokemonImage
 import com.gabrielsamojlo.pokemons.domain.model.pokemon.PokemonDetails
 import com.gabrielsamojlo.pokemons.domain.model.State
-import com.gabrielsamojlo.pokemons.ui.theme.Pink80
-import com.gabrielsamojlo.pokemons.ui.theme.Typography
+import com.gabrielsamojlo.pokemons.design.theme.Typography
 
 @Composable
 fun PokemonDetailsScreen(
@@ -50,20 +43,21 @@ private fun PokemonDetails(pokemon: PokemonDetails) {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        AsyncImage(
+        PokemonImage(
+            url = pokemon.imageUrl,
             modifier = Modifier
-                .size(128.dp)
-                .padding(8.dp),
-            contentDescription = pokemon.name,
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(pokemon.imageUrl)
-                .diskCachePolicy(CachePolicy.ENABLED)
-                .diskCacheKey(pokemon.imageUrl)
-                .build(),
+                .size(144.dp)
+                .padding(8.dp)
         )
 
         Text(text = pokemon.name.capitalize(Locale.current))
-        Text(text = "${pokemon.experience} experience", style = Typography.bodyMedium)
+        Text(
+            text = stringResource(
+                id = R.string.pokemon_experience,
+                pokemon.experience
+            ),
+            style = Typography.bodyMedium
+        )
 
         Spacer(modifier = Modifier.height(64.dp))
 
@@ -85,31 +79,6 @@ private fun PokemonDetails(pokemon: PokemonDetails) {
     }
 }
 
-@Composable
-fun ErrorView(throwable: Throwable) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            painter = painterResource(id = R.drawable.baseline_error_outline_24),
-            contentDescription = "error icon",
-            colorFilter = ColorFilter.tint(Pink80),
-            modifier = Modifier.size(192.dp)
-        )
-
-        Text(
-            text = throwable.message.orEmpty(),
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(8.dp)
-                .align(Alignment.CenterHorizontally)
-        )
-        Text(text = "Please try again later.", style = Typography.bodyMedium)
-    }
-}
 
 @Composable
 private fun LoadingView() {

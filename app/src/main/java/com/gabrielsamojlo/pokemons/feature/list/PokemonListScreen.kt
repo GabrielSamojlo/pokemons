@@ -13,16 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import coil.compose.AsyncImage
-import coil.request.CachePolicy
-import coil.request.ImageRequest
+import com.gabrielsamojlo.pokemons.design.ErrorView
+import com.gabrielsamojlo.pokemons.design.PokemonImage
 import com.gabrielsamojlo.pokemons.domain.model.pokemon.Pokemon
-import com.gabrielsamojlo.pokemons.feature.details.ErrorView
 import com.gabrielsamojlo.pokemons.ui.LocalScaffoldState
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -77,18 +74,13 @@ private fun PokemonListItem(
             modifier = Modifier.requiredHeight(96.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            AsyncImage(
+            PokemonImage(
+                url = pokemon.imageUrl,
                 modifier = Modifier
                     .height(96.dp)
-                    .padding(8.dp),
-                contentDescription = pokemon.name,
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(pokemon.imageUrl)
-                    .diskCachePolicy(CachePolicy.ENABLED)
-                    .diskCacheKey(pokemon.imageUrl)
-                    .build(),
+                    .padding(8.dp)
             )
-            
+
             Text(
                 modifier = Modifier.padding(start = 8.dp),
                 text = pokemon.name.capitalize(Locale.current)

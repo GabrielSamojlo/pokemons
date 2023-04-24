@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import com.gabrielsamojlo.pokemons.ui.App
-import com.gabrielsamojlo.pokemons.ui.theme.PokemonsTheme
+import com.gabrielsamojlo.pokemons.design.theme.PokemonsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

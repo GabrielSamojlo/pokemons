@@ -1,4 +1,4 @@
-package com.gabrielsamojlo.pokemons.ui.theme
+package com.gabrielsamojlo.pokemons.design.theme
 
 import android.app.Activity
 import android.os.Build
