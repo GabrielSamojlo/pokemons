@@ -1,4 +1,4 @@
-package com.gabrielsamojlo.pokemons.domain.model
+package com.gabrielsamojlo.pokemons.domain.model.pokemon
 
 data class Pokemon(
     val name: String,

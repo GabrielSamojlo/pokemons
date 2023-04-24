@@ -6,6 +6,9 @@ import com.gabrielsamojlo.pokemons.persistence.entity.PokemonKeyEntity
 
 interface LocalDataSource {
     suspend fun insertAll(entities: List<PokemonEntity>)
+
+    suspend fun insert(entity: PokemonEntity)
+
     suspend fun getAll(): List<PokemonEntity>
     fun getAllAsPagingSource(): PagingSource<Int, PokemonEntity>
 

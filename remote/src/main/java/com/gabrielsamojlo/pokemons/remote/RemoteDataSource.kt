@@ -5,5 +5,5 @@ import com.gabrielsamojlo.pokemons.remote.model.PokemonResponse
 
 interface RemoteDataSource {
     suspend fun getPaginated(limit: Int = 20, offset: Int? = null): List<PokemonResponse>
-    suspend fun getById(id: Int): PokemonDetailsResponse?
+    suspend fun getById(id: Int?): Result<PokemonDetailsResponse?>
 }

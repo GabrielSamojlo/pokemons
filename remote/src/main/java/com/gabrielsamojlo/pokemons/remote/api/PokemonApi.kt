@@ -18,6 +18,6 @@ internal interface PokemonApi {
 
     @GET("/api/v2/pokemon/{id}")
     suspend fun getById(
-        @Path("id") id: Int
+        @Path("id") id: Int?
     ): Response<PokemonDetailsResponse>
 }

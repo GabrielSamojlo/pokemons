@@ -8,4 +8,6 @@ data class PokemonEntity(
     @PrimaryKey val id: Int,
     val name: String,
     val imageUrl: String,
+    val experience: Int? = null,
+    // TODO: should add support for stats (as relations)
 )

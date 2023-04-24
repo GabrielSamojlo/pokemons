@@ -21,7 +21,8 @@ import androidx.paging.compose.LazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.CachePolicy
 import coil.request.ImageRequest
-import com.gabrielsamojlo.pokemons.domain.model.Pokemon
+import com.gabrielsamojlo.pokemons.domain.model.pokemon.Pokemon
+import com.gabrielsamojlo.pokemons.feature.details.ErrorView
 import com.gabrielsamojlo.pokemons.ui.LocalScaffoldState
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -37,10 +38,14 @@ fun PokemonListScreen(
     val scaffoldState = LocalScaffoldState.current
 
     if (error != null) {
-        LaunchedEffect(error.message) {
-            scaffoldState.snackbarHostState.showSnackbar(
-                message = error.message.orEmpty()
-            )
+        if (pokemons.itemCount == 0) {
+            ErrorView(error)
+        } else {
+            LaunchedEffect(error.message) {
+                scaffoldState.snackbarHostState.showSnackbar(
+                    message = error.message.orEmpty()
+                )
+            }
         }
     }
 

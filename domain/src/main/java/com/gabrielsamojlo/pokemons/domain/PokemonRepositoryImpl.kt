@@ -5,26 +5,37 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.gabrielsamojlo.pokemons.domain.model.Pokemon
-import com.gabrielsamojlo.pokemons.domain.model.PokemonDetails
+import com.gabrielsamojlo.pokemons.domain.model.pokemon.Pokemon
+import com.gabrielsamojlo.pokemons.domain.model.pokemon.PokemonDetails
+import com.gabrielsamojlo.pokemons.domain.model.State
 import com.gabrielsamojlo.pokemons.domain.model.toDomain
+import com.gabrielsamojlo.pokemons.domain.model.toEntity
 import com.gabrielsamojlo.pokemons.persistence.LocalDataSource
 import com.gabrielsamojlo.pokemons.remote.RemoteDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
 @OptIn(ExperimentalPagingApi::class)
 internal class PokemonRepositoryImpl(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
-    private val mediator: RemoteSourceMediator
+    private val mediator: RemoteSourceMediator,
+    private val stateExtractor: StateExtractor
 ) : PokemonRepository {
     override suspend fun getAll(): List<Pokemon> {
         return remoteDataSource.getPaginated().map { it.toDomain() }
     }
 
-    override suspend fun getById(id: Int): PokemonDetails? {
-        return remoteDataSource.getById(id)?.toDomain()
+    override fun getById(id: Int?): Flow<State<PokemonDetails>> {
+        return flow {
+            emit(State.Loading())
+
+            val state = stateExtractor.get { remoteDataSource.getById(id).map { it.toDomain() } }
+            state.onSuccess { localDataSource.insert(it.toEntity()) }
+
+            emit(state)
+        }
     }
 
     override fun getPaginated(): Flow<PagingData<Pokemon>> {

@@ -17,6 +17,10 @@ internal class LocalDataSourceImpl(
         pokemonDao.insertAll(entities)
     }
 
+    override suspend fun insert(entity: PokemonEntity) {
+        pokemonDao.insert(entity)
+    }
+
     override suspend fun getAll(): List<PokemonEntity> {
         return pokemonDao.getAll()
     }
